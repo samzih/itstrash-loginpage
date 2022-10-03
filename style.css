@@ -21,7 +21,7 @@ img {
     margin: 1rem auto;
 }
 
-#submitBtn {
+#login-button {
     cursor: pointer;
     background-color: #008859;
     color: white;
@@ -30,7 +30,7 @@ img {
     font-weight:600;
 }
 
-#submitBtn:hover {
+#login-button:hover {
     background-color:#326e5a;
     transition: 0.1s;
 }
