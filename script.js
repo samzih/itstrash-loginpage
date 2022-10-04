@@ -15,13 +15,32 @@ loginBtn.addEventListener('click', function loginValues() {
 
 // Function that checks if user input of username and password are valid
 function loginMatch(uN, uP) {
-    if (uN == 'fredrik' && uP == '12345') {
-        console.log("you have logged in");
+    if (uN == 'fredrik' && uP == '12345' || uN == 'sam' && uP == 'hlae16' || uN == 'adam' && uP == 'dnx444' || uN == 'tyler' && uP == 'apxq44') {
+        console.log("You are now logged in as: " + uN);
 
         // clears the form of any user input values
         document.getElementById('login-form').reset();
+
+        // removes login form and changes the paragraph above
+        document.getElementById('login-form').remove();
+        document.querySelector('.login-with').innerHTML = 'Inloggad som ' + uN[0].toUpperCase() + uN.slice(1);
+
+        // selects login text paragraph by class
+        const loginWith = document.querySelector(".login-with");
+
+        // creates logout button aswell as a class + some attributes and then adds it after the logged in paragraph
+        const logoutBtn = document.createElement("input");
+        logoutBtn.className = "logout-btn";
+        logoutBtn.setAttribute("type", "button");
+        logoutBtn.setAttribute("value", "Logga ut");
+        loginWith.insertAdjacentElement("afterend", logoutBtn);
     }
     else {
         alert("Fel användarnamn eller lösenord!");
     }
 }
+
+// Function for when clicking on the "logga ut" button
+logoutBtn.addEventListener('click', function logoutFunc() {
+    
+});

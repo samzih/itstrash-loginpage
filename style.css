@@ -32,14 +32,32 @@ img {
 
 #login-button:hover {
     background-color:#326e5a;
-    transition: 0.1s;
+    transition: 0.2s;
 }
 
-input {
+form > input {
     display: block;
     text-align: center;
     padding: 1rem 2rem;
     margin: 0.5rem auto;
     border: 1px solid rgb(158, 158, 158);
     border-radius: 3px;
+}
+
+/* Logout button */
+.logout-btn {
+    cursor: pointer;
+    background-color: #db5a5a;
+    color: white;
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 100px;
+    font-weight:600;
+
+}
+.logout-btn:hover {
+    background-color:#aa4848;
+    transition: 0.2s;
 }
