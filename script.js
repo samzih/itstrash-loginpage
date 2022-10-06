@@ -1,19 +1,21 @@
 // Retrives the login button ("Logga in") by ID and assigns it to a variable
 const loginBtn = document.getElementById("login-button");
 // Selects the main paragraph and assigns it to a variable
-const loginWith = document.querySelector(".login-with");
+const pageStatus = document.querySelector(".page-status");
 // login form to variable
 const loginForm = document.getElementById("login-form");
 
-// Assigns the HTML input username and password elements to variables
-let userName;
-let userPassword;
 
-// Created a logout button aswell as add a class + some attributes to it
+
+
+// Logout button with a class (for css styling) + some attributes
 const logoutBtn = document.createElement("input");
 logoutBtn.className = "logout-btn";
 logoutBtn.setAttribute("type", "button");
 logoutBtn.setAttribute("value", "Logga ut");
+
+
+
 
 // A set of account/user objects (username + password) inside of an Array
 let users = [
@@ -31,17 +33,20 @@ let users = [
     }
 ]
 
+
+
+
 // Initalizing function too check if user already has login info stored in local storage
 init();
 function init() {
-    const usernameCheck = localStorage.getItem("name of user");
-    const passwordCheck = localStorage.getItem("password of user");
+    const usernameCheck = localStorage.getItem("username");
+    const passwordCheck = localStorage.getItem("password");
 
     for (i = 0; i < users.length; i++) {
         if(usernameCheck == users[i].username && passwordCheck == users[i].password) {
             
             // changes the paragraph above to signed in + user's name (the methods change the first letter of the username to be in capital)
-            loginWith.innerHTML = "Inloggad som " + usernameCheck[0].toUpperCase() + usernameCheck.slice(1);
+            pageStatus.innerHTML = "Inloggad som " + usernameCheck[0].toUpperCase() + usernameCheck.slice(1);
 
             // clears the login form of any user input values
             loginForm.reset();
@@ -53,43 +58,47 @@ function init() {
             logoutBtn.style.display = "block";
 
             // inserts logout button element after
-            loginWith.insertAdjacentElement("afterend", logoutBtn);
+            pageStatus.insertAdjacentElement("afterend", logoutBtn);
 
-            // if the if statement is valid then it will put us out of the function
+            // takes us out of the loop
             return
         }
     }
 }
 
-// Local storage for the array with objects
-localStorage.setItem("list of users", JSON.stringify(users)); // saves user array (with objects) as string
 
-// Collect and assigns key to a variable
-const usersStorage = localStorage.getItem("list of users");
+
+
+// Sets array (with objects) as a string in localStorage
+localStorage.setItem("users", JSON.stringify(users));
+
+// Get key value and assign to variable
+const usersLocalStorage = localStorage.getItem("users");
 
 // Parses it back to an array of objects
-let obj = JSON.parse(usersStorage);
+let usersArray = JSON.parse(usersLocalStorage);
 
 
-// When clicking on the "Logga in" button it runs a for loop with an if statement inside it to check and see if the user input matches any stored set of username and password in the "users" Array
+
+
+// Function when clicking on login button (checks if the user input matches any stored set of username and password in the "users" Array)
 loginBtn.addEventListener("click", function loginValues() {
 
-    userName = document.getElementById("login-username").value;
-    userPassword = document.getElementById("login-password").value;
+    // sets user input login values to variables
+    const userName = document.getElementById("login-username").value;
+    const userPassword = document.getElementById("login-password").value;
     
-    // local storage for the username put in the user input field
-    localStorage.setItem("name of user", userName);
-    const usernameStorage = localStorage.getItem("name of user");
-
-    // local storage for the password put in the user input field
-    localStorage.setItem("password of user", userPassword);
-    const passwordStorage = localStorage.getItem("password of user");
+    // localStorage for the username & password
+    localStorage.setItem("username", userName);
+    localStorage.setItem("password", userPassword);
+    const usernameStorage = localStorage.getItem("username");
+    const passwordStorage = localStorage.getItem("password");
 
     for (i = 0; i < users.length; i++) {
-        if(usernameStorage == obj[i].username && passwordStorage == obj[i].password) {
+        if(usernameStorage == usersArray[i].username && passwordStorage == usersArray[i].password) {
             
-            // changes the paragraph above to signed in + user's name (the methods change the first letter of the username to be in capital)
-            loginWith.innerHTML = "Inloggad som " + userName[0].toUpperCase() + userName.slice(1);
+            // changes the page status paragraph (the methods change the first letter of the username to be in capital)
+            pageStatus.innerHTML = "Inloggad som " + usernameStorage[0].toUpperCase() + usernameStorage.slice(1);
 
             // clears the login form of any user input values
             loginForm.reset();
@@ -101,20 +110,25 @@ loginBtn.addEventListener("click", function loginValues() {
             logoutBtn.style.display = "block";
 
             // inserts logout button element after
-            loginWith.insertAdjacentElement("afterend", logoutBtn);
+            pageStatus.insertAdjacentElement("afterend", logoutBtn);
 
-            // if the if statement is true then it will put us out of the loginValues function so that the alert does not run
+            // takes us out of the loop
             return
         }
     }
     alert("Fel användarnamn eller lösenord!");
 });
 
-// Function for when clicking on the "logga ut" button to hide and show to go back to default
+
+
+
+// Function that restores (hides/shows) elements back to default when clicking on the logout button
 logoutBtn.addEventListener('click', function logoutFunc() {
     logoutBtn.style.display = "none"; // hides the logout button
     loginForm.style.display = "block"; // displays the login form
-    loginWith.innerHTML = "Logga in med konto"; // changes the paragraph back to default text
-    localStorage.removeItem("name of user");
-    localStorage.removeItem("password of user");
+    pageStatus.innerHTML = "Logga in med konto"; // changes the main page status <p> back to default
+
+    // removes username and password from the localStorage
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
 });
