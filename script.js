@@ -17,7 +17,7 @@ logoutBtn.setAttribute("value", "Logga ut");
 
 
 
-// A set of account/user objects (username + password) inside of an Array
+// A set of objects (username + password) inside of an Array
 let users = [
     {
         username: "fredrik",
@@ -30,6 +30,10 @@ let users = [
     {
         username: "adam",
         password: "qwe321"
+    },
+    {
+        username: "markus",
+        password: "js555"
     }
 ]
 
